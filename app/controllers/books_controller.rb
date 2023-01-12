@@ -1,6 +1,27 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
 
+  def list_oop
+    @books = Book.where out_of_print: true
+    render :index, status: :ok
+  end
+
+  def list_books_by_author
+    @author = Author.find_by(first_name: params[:first_name], last_name: params[:last_name])
+    @books = Book.where author: @author
+    render :index, status: :ok
+  end
+
+  def list_books_by_year_published_range
+    @books = Book.where(year_published: params[:begin_year]..params[:end_year])
+    render :index, status: :ok
+  end
+
+  def list_books_since_year
+    @books = Book.where(year_published: params[:year]..)
+    render :index, status: :ok
+  end
+
   # GET /books or /books.json
   def index
     @books = Book.all
