@@ -1,6 +1,11 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: %i[ show edit update destroy ]
 
+  def list_by_orders_count
+    @customers = Customer.where(orders_count: params[:orders_counts])
+    render :index, status: :ok
+  end
+
   # GET /customers or /customers.json
   def index
     @customers = Customer.all
