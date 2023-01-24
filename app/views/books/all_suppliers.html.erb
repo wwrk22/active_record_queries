@@ -1,0 +1,9 @@
+<p style="color: green"><%= notice %></p>
+
+<div>
+  <ul>
+    <% @all_books_with_suppliers.each do |book| %>
+      <li><%= "#{book.title}, ISBN##{book.isbn}, Supplier: #{book.supplier.name}" %></li>
+    <% end %>
+  </ul>
+</div>

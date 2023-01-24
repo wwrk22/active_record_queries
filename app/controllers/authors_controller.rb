@@ -3,7 +3,14 @@ class AuthorsController < ApplicationController
 
   # GET /authors or /authors.json
   def index
-    @authors = Author.all
+    if params[:book_count]
+      @authors = Author.joins(:books)
+                       .select('authors.id, authors.first_name, authors.last_name')
+                       .group('books.author_id')
+                       .having('count(books.title) >= ?', params[:book_count].to_i)
+    else
+      @authors = Author.all
+    end
   end
 
   # GET /authors/1 or /authors/1.json
