@@ -31,4 +31,7 @@ Rails.application.routes.draw do
 
   # Use the #pluck method to get an array of exactly what you want.
   get '/all_supplier_names', to: 'suppliers#all_names'
+
+  # Use the #count method to find out how many out-of-print books each author has.
+  get '/out_of_print_book_counts', to: 'authors#oop_counts'
 end

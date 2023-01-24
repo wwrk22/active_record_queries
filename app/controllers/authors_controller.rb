@@ -1,6 +1,14 @@
 class AuthorsController < ApplicationController
   before_action :set_author, only: %i[ show edit update destroy ]
 
+  def oop_counts
+    @oop_counts = Author.joins(:books)
+                        .select('authors.first_name, authors.last_name, count(books.out_of_print) as oop_count')
+                        .where('books.out_of_print' => true)
+                        .group('authors.id')
+  end
+
+
   # GET /authors or /authors.json
   def index
     if params[:book_count]
