@@ -9,7 +9,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  get '/books/filter/out_of_print/', to: 'books#list_oop'
   get '/books_by_author/:first_name/:last_name', to: 'books#list_books_by_author'
   get '/books/year_published_range/:begin_year/:end_year', to: 'books#list_books_by_year_published_range'
   get '/books_since_year/:year', to: 'books#list_books_since_year'
@@ -26,4 +25,10 @@ Rails.application.routes.draw do
 
   # Count the number of books written by each author.
   get '/all_authors_book_counts', to: 'authors#book_count'
+
+  # Use the #includes method to avoid an N+1 query.
+  get '/book_suppliers', to: 'books#all_suppliers'
+
+  # Use the #pluck method to get an array of exactly what you want.
+  get '/all_supplier_names', to: 'suppliers#all_names'
 end

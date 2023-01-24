@@ -1,9 +1,9 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
 
-  def list_oop
-    @books = Book.where out_of_print: true
-    render :index, status: :ok
+  def all_suppliers
+    @all_books_with_suppliers = Book.all.includes(:supplier)
+    render :all_suppliers, status: :ok
   end
 
   def available_books_since_year
@@ -46,10 +46,16 @@ class BooksController < ApplicationController
 
   # GET /books or /books.json
   def index
-    if params[:asc_order]
-      @books = Book.order(:year_published)
+    if params[:is_out_of_print] == 'true'
+      @books = Book.is_out_of_print.all
     else
-      @books = Book.order(year_published: :desc)
+      @books = Book.all
+    end
+
+    if params[:asc_order]
+      @books = @books.order(:year_published)
+    else
+      @books = @books.order(year_published: :desc)
     end
   end
 

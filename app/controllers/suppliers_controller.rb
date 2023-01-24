@@ -1,6 +1,12 @@
 class SuppliersController < ApplicationController
   before_action :set_supplier, only: %i[ show edit update destroy ]
 
+  def all_names
+    @all_names = Supplier.pluck(:name)
+    render :all_names, status: :ok
+  end
+
+
   # GET /suppliers or /suppliers.json
   def index
     @suppliers = Supplier.all
