@@ -78,6 +78,13 @@ class AuthorsController < ApplicationController
     render :book_count, status: :ok
   end
 
+  # List all authors and their books.
+  def all_books
+    @authors = Author.joins('INNER JOIN books ON authors.id = books.author_id')
+                     .select('authors.first_name, authors.last_name, books.title')
+    render :all_books, status: :ok
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_author

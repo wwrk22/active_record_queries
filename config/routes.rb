@@ -34,4 +34,7 @@ Rails.application.routes.draw do
 
   # Use the #count method to find out how many out-of-print books each author has.
   get '/out_of_print_book_counts', to: 'authors#oop_counts'
+
+  # Use the #joins method to specify raw SQL JOIN condition.
+  get '/all_authors_and_books', to: 'authors#all_books'
 end
