@@ -6,10 +6,32 @@ class BooksController < ApplicationController
     render :index, status: :ok
   end
 
-  def list_books_by_author
-    @author = Author.find_by(first_name: params[:first_name], last_name: params[:last_name])
-    @books = Book.where author: @author
+  def available_books_since_year
+    @books = Book.where(out_of_print: false).where(year_published: params[:year]..)
     render :index, status: :ok
+  end
+
+  def list_books_by_either_author
+    @author1 = Author.find_by(first_name: params[:a1_f_name], last_name: params[:a1_l_name])
+    @author2 = Author.find_by(first_name: params[:a2_f_name], last_name: params[:a2_l_name])
+    @books = Book.where(author: @author1).or(Book.where(author: @author2))
+    render :index, status: :ok
+  end
+
+  def list_books_not_by_author
+    @author = Author.find_by(first_name: params[:first_name], last_name: params[:last_name])
+    @books = Book.where.not author: @author
+    render :index, status: :ok
+  end
+
+  def list_books_by_author
+    if Author.exists?(first_name: 'Joe', last_name: 'Shmoe')
+      @author = Author.find_by(first_name: params[:first_name], last_name: params[:last_name])
+      @books = Book.where author: @author
+      render :index, status: :ok
+    else
+      render :index, status: :unprocessable_entity
+    end
   end
 
   def list_books_by_year_published_range
@@ -24,7 +46,11 @@ class BooksController < ApplicationController
 
   # GET /books or /books.json
   def index
-    @books = Book.all
+    if params[:asc_order]
+      @books = Book.order(:year_published)
+    else
+      @books = Book.order(year_published: :desc)
+    end
   end
 
   # GET /books/1 or /books/1.json
