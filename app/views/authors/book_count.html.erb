@@ -3,7 +3,7 @@
 <div>
   <ul>
     <% @book_count.each do |author, count| %>
-      <li><%= "#{author}, #{count}" %></li>
+      <li><%= "#{author[0]} #{author[1]}, #{count}" %></li>
     <% end %>
   </ul>
 </div>

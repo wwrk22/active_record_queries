@@ -59,7 +59,8 @@ class AuthorsController < ApplicationController
 
   # Count the number of books written by each author.
   def book_count
-    @book_count = Author.joins(:books).group('books.author_id').count
+    @book_count = Author.joins(:books).group('authors.first_name', 'authors.last_name').count
+    render :book_count, status: :ok
   end
 
   private

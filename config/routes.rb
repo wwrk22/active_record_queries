@@ -25,5 +25,5 @@ Rails.application.routes.draw do
   get '/available_books_since_year/:year', to: 'books#available_books_since_year'
 
   # Count the number of books written by each author.
-  get '/all_authors_book_counts', to: 'author#book_count'
+  get '/all_authors_book_counts', to: 'authors#book_count'
 end
