@@ -85,6 +85,14 @@ class AuthorsController < ApplicationController
     render :all_books, status: :ok
   end
 
+  # List all titles of books with price in the given range along with the author name.
+  def books_in_price_range
+    price_range = params[:low]..params[:high]
+    @authors_and_books = Author.joins(:books).where('books.price' => price_range)
+                               .select('authors.first_name, authors.last_name, books.title, books.price')
+    render :books_in_price_range, status: :ok
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_author

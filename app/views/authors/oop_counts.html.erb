@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<div>
+  <ul>
+    <% @oop_counts.each do |author| %>
+      <li><%= "#{author.first_name} #{author.last_name}, #{author.oop_count}" %></li>
+    <% end %>
+  </ul>
+</div>
+

@@ -37,4 +37,8 @@ Rails.application.routes.draw do
 
   # Use the #joins method to specify raw SQL JOIN condition.
   get '/all_authors_and_books', to: 'authors#all_books'
+
+  # Use the #joins with a condition that uses BETWEEN to check the book price.
+  # Encode a decimal point in URL with '%2E'.
+  get '/books_in_price_range/:low/:high', to: 'authors#books_in_price_range'
 end

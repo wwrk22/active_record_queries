@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<div>
+  <ul>
+    <% @authors.each do |author| %>
+      <li><%= "#{author.first_name} #{author.last_name}, #{author.title}" %></li>
+    <% end %>
+  </ul>
+</div>
+
